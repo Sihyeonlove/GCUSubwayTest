@@ -105,11 +105,11 @@
                else{
                 downcount++;
                     if(res.data.realtimeArrivalList[i].arvlMsg3 == "개포동"){
-                        let aa = document.getElementById("downdaemo").innerHTML = res.data.realtimeArrivalList[i].btrainNo + ' ' + res.data.realtimeArrivalList[i].bstatnNm + '=>';
+                        let aa = document.getElementById("downgaepo").innerHTML = res.data.realtimeArrivalList[i].btrainNo + ' ' + res.data.realtimeArrivalList[i].bstatnNm + '=>';
                     }
                     
                     else if(res.data.realtimeArrivalList[i].arvlMsg3 == "대모산입구"){
-                        let aa = document.getElementById("downgaepo").innerHTML = res.data.realtimeArrivalList[i].btrainNo + ' ' + res.data.realtimeArrivalList[i].bstatnNm + '=>';
+                        let aa = document.getElementById("downdaemo").innerHTML = res.data.realtimeArrivalList[i].btrainNo + ' ' + res.data.realtimeArrivalList[i].bstatnNm + '=>';
                     }
                     
                     else if(res.data.realtimeArrivalList[i].arvlMsg3 == "가천대"){
