@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지하철 오작동 조치법</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            background-color: #333; /* 헤더 배경색 */
+            color: #fff; /* 헤더 텍스트 색상 */
+            padding: 10px 0;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 50px); /* 헤더 높이 고려 */
+            background: linear-gradient(to right, #ffcccc, #ff9999); /* 왼쪽과 오른쪽 배경색 */
+        }
+        .left-section, .right-section {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .vertical-line {
+            width: 2px;
+            height: 80%;
+            background-color: #ccc; /* 선 색상 */
+        }
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .content img {
+            width: 100px;
+            height: auto;
+        }
+        h2 {
+            margin-top: 20px;
+            color: #333; 
+        }
+        .left-section, .right-section {
+    
+    transition: transform 0.3s ease; 
+}
+
+.left-section:hover, .right-section:hover {
+    transform: translateY(-5px); 
+}
+a{
+    text-decoration: none;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>사용 중인 브라우져를 선택하세요.<br>모바일 / Safari 환경에서는 동작하지 않는 것이 정상입니다.</h1>
+    </header>
+    <div class="container">
+        
+        <section class="left-section">
+            <a href="chrome.html">
+            <div class="content">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Google_Chrome_icon_%28September_2014%29.svg/640px-Google_Chrome_icon_%28September_2014%29.svg.png">
+                <h2>Chrome 조치법</h2>
+            </div>
+        </a>
+        </section>
+        <div class="vertical-line"></div>
+        <section class="right-section">
+            <a href="edge.html">
+            <div class="content">
+                <img src="https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHHFT949fUipzkiFOBH3fAiZZUCdYojwUyX2aTonS1aIwMrx6NUIsHfUHSLzjGJFxxnhbAKvZT06Ee1TnhVHXwv.o_vO9a3rcbh6y0Kmoz9avfS7PeFgaufpuq9mS2yaWbn_Ri_u0wTJDGMM33V4t6rs-&format=source">
+                <h2>Edge 조치법</h2>
+            </div>
+            </a>
+        </section>
+    </div>
+</body>
+</html>
