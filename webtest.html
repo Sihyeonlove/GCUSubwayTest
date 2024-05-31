@@ -69,7 +69,7 @@
             let downcount = 0;
             
                // console.log(res.data.realtimeArrivalList);
-            if(res.data.realtimeArrivalList.length != undefined){
+            if(res.data.total != 0){
             for(let i = 0; i < res.data.realtimeArrivalList.length; i++){
                 //arvlCd 속성이 막차가 지나가면 1이 되는듯 ?
                 if(time.getHours() > 4){
@@ -140,6 +140,7 @@
                // str += `<br>${i + 1} - ${res.data.realtimeArrivalList[i].trainLineNm} (${res.data.realtimeArrivalList[i].updnLine}) ${res.data.realtimeArrivalList[i].btrainNo} 열차가 가천대역에 도착했습니다.`;
                }
             }
+            }//undefined check end
             }
             if(!upcount){
                 strleft += `<tr><td colspan="3">오늘의 상행 열차 운행이 종료되었습니다.</td></tr>`
@@ -147,7 +148,6 @@
             if(!downcount){
                 strright += `<tr><td colspan="3">오늘의 하행 열차 운행이 종료되었습니다.</td></tr>`
             }
-            }//undefined check end
         
         let al = document.getElementById("lefttext").innerHTML = strleft;
         let ar = document.getElementById("righttext").innerHTML = strright;
