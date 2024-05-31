@@ -69,6 +69,7 @@
             let downcount = 0;
             
                // console.log(res.data.realtimeArrivalList);
+            if(res.data.realtimeArrivalList.length != undefined){
             for(let i = 0; i < res.data.realtimeArrivalList.length; i++){
                 //arvlCd 속성이 막차가 지나가면 1이 되는듯 ?
                 if(time.getHours() > 4){
@@ -146,7 +147,7 @@
             if(!downcount){
                 strright += `<tr><td colspan="3">오늘의 하행 열차 운행이 종료되었습니다.</td></tr>`
             }
-            
+            }//undefined check end
         
         let al = document.getElementById("lefttext").innerHTML = strleft;
         let ar = document.getElementById("righttext").innerHTML = strright;
