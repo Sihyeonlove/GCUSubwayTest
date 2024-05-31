@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://www.gachon.ac.kr/sites/kor/images/sub/slogan_5.png" rel="shortcut icon" type="image/x-icon">
+    <title>가천대학교 광역환승센터</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            position: relative;
+        }
+
+        .item {
+            width: 125px;
+            height: 125px;
+            background-color: skyblue;
+            margin: 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            align-items: center;
+            font-size: 18px;
+            color: white;
+            text-transform: uppercase;
+            animation: moveUp 2s ease-in-out infinite alternate;
+        }
+
+        .item:hover {
+            background-color: pink;
+        }
+
+        .train,
+        .bus,
+        .additional-train,
+        .additional-bus {
+            position: absolute;
+            bottom: 0;
+            height: 50px;
+            width: 100px;
+            z-index: 2;
+            margin-bottom: 0px;
+            margin: 0;
+            overflow-x: hidden;
+            overflow-y: hidden;
+        }
+
+        .train img,
+        .bus img,
+        .additional-train img,
+        .additional-bus img {
+            position: absolute;
+            bottom: 0;
+            height: 50px;
+            width: auto;
+            margin: 0px;
+            max-width: 100px;
+            z-index: 2;
+        }
+
+        .train {
+            left: 10%;
+            animation: trainMove 10s linear infinite;
+        }
+
+        .bus {
+            right: 10%;
+            animation: busMove 14.9s linear infinite;
+        }
+
+        .additional-train {
+            left: 20%;
+            animation: additionalTrainMove 7.9s linear infinite;
+        }
+
+        .additional-bus {
+            right: 20%;
+            animation: additionalBusMove 11.9s linear infinite;
+        }
+
+        .center-image {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        #title {
+            color: black;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+a{
+    text-decoration: none;
+}
+        @keyframes trainMove {
+            0% {
+                left: -120px;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        @keyframes busMove {
+            0% {
+                right: -120px;
+            }
+
+            100% {
+                right: 100%;
+            }
+        }
+
+        @keyframes additionalTrainMove {
+            0% {
+                left: -120px;
+            }
+
+            100% {
+                left: 100%;
+            }
+        }
+
+        @keyframes additionalBusMove {
+            0% {
+                right: -120px;
+            }
+
+            100% {
+                right: 100%;
+            }
+        }
+
+        @keyframes moveUp {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @media screen and (max-width : 1031px) {
+            .center-image {
+                display: none;
+            }
+            .train,
+            .bus,
+        .additional-train,
+        .additional-bus{
+            display: none;
+        }
+        }
+
+        @media screen and (min-width : 1032px) {
+            .center-image {
+                display: block;
+            }
+            .bus,
+        .additional-train,
+        .additional-bus{
+            display: block;
+        }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <canvas id="background"></canvas>
+
+    <h1 id="title">가천대학교 통합환승센터</h1>
+    <div class="container">
+        <a href="https://sihyeonlove.github.io/GCUSubwayTest/moodangindex.html" target="_self">
+            <div class="item">무당이 확인</div>
+        </a>
+        <a href="https://sihyeonlove.github.io/GCUSubwayTest/webtest.html" target="_self">
+            <div class="item">지하철 확인</div>
+        </a>
+        <a href="https://www.google.com/" target="_self">
+            <div class="item">운영시설 확인</div>
+        </a>
+        <a href="https://www.google.com/" target="_self">
+            <div class="item">최적경로 확인</div>
+        </a>
+        <a href="https://sihyeonlove.github.io/GCUSubwayTest/tabletest.html" target="_self">
+            <div class="item">주요역 확인</div>
+        </a>
+    </div><!---->
+
+
+
+    <img class="center-image" class="gachon" src="img/gachon.jpg">
+    <div class="train"><img src="img/subway.png"></div>
+    <div class="bus"><img src="img/bus.png"></div>
+    <div class="additional-train"><img src="img/subway.png"></div>
+    <div class="additional-bus"><img src="img/bus.png"></div>
+    <script>
+        let canvas = document.getElementById('background');
+        let ctx = canvas.getContext('2d');
+        let particles = [];
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        function Particle() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.xrd = (Math.random() * 2) - 1;
+            this.yrd = (Math.random() * 2) - 1;
+            this.size = Math.random() * 7;
+        }
+
+        Particle.prototype.move = function () {
+            this.x += this.xrd;
+            this.y += this.yrd;
+            if (this.x < 0 || this.x > canvas.width) {
+                this.xrd = -this.xrd;
+            }
+            if (this.y < 0 || this.y > canvas.height) {
+                this.yrd = -this.yrd;
+            }
+        }
+
+        Particle.prototype.draw = function () {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.fill();
+        }
+
+        function createParticles() {
+            for (let i = 0; i < 100; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(function (particle) {
+                particle.move();
+                particle.draw();
+            });
+            requestAnimationFrame(drawParticles);
+        }
+
+        createParticles();
+        drawParticles();
+
+        function changeBackgroundColor() {
+            var date = new Date();
+            var hours = date.getHours();
+
+            if ((hours >= 6 && hours < 18)) {
+                let a = document.body.style.backgroundColor = "white";
+                let b = document.querySelector("h1").style.color = "black";
+            } else {
+                let a = document.body.style.backgroundColor = "black";
+                let b = document.querySelector("h1").style.color = "white";
+            }
+        }
+
+        changeBackgroundColor();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ko">
+    
+    <head>
+        <meta charset="utf-8">
+        <link href="https://www.gachon.ac.kr/sites/kor/images/sub/slogan_5.png" rel="shortcut icon" type="image/x-icon">
+        <title>가천대학교 지하철 도착정보 테스트</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js" integrity="sha512-PJa3oQSLWRB7wHZ7GQ/g+qyv6r4mbuhmiDb8BjSFZ8NZ2a42oTtAq5n0ucWAwcQDlikAtkub+tPVCw4np27WCg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <meta name=“viewport” content=“width=device-width, initial-scale=1.0 ”>
+        
+       <script>
+
+        function mudangTime(time){
+            if(time.getDay() != 6 && time.getDay() != 7 && (time.getHours() >= 9 && time.getHours() <= 10) || (time.getHours() == 8 && time.getMinutes() >= 30) || (time.getHours() == 11 && time.getMinutes() <= 40) || (time.getHours() == 17 && time.getMinutes() <= 25) || (time.getHours() >= 13 && time.getHours() <= 16)){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+        function dayToWeek(day){
+            switch(day){
+                case 1 : return '월'; break;
+                case 2 : return '화'; break;
+                case 3 : return '수'; break;
+                case 4 : return '목'; break;
+                case 5 : return '금'; break;
+                case 6 : return '토'; break;
+                case 7 : return '일'; break;
+                default : return undefined; break;
+            }
+        }
+
+        function secondTwo(sec){
+            if(sec < 10){
+                return '0' + sec + '';
+            }
+            else{
+                return sec;
+            }
+        }
+
+        function maxIsFive(num){
+            return num >= 5 ? 5 : num;
+        }
+
+        const reset = async() => {
+        await axios.get("http://swopenapi.seoul.go.kr/api/subway/sample/json/realtimeStationArrival/0/5/%EA%B0%80%EC%B2%9C%EB%8C%80")
+        .then((res) => {
+            let time = new Date();
+            
+            let str = `<= 상행|${time.getFullYear()} / ${time.getMonth() + 1} / ${time.getDate()} (${dayToWeek(time.getDay())}), ${secondTwo(time.getHours())} : ${secondTwo(time.getMinutes())} : ${secondTwo(time.getSeconds())}|하행 =>`;
+            var a1 = document.getElementById("upmoran").innerHTML = '';
+            var a1 = document.getElementById("uptaepyeong").innerHTML = '';
+            var a1 = document.getElementById("upgcu").innerHTML = '';
+            var a1 = document.getElementById("upyatap").innerHTML = '';
+            var a1 = document.getElementById("upimae").innerHTML = '';
+            var a1 = document.getElementById("downdaemo").innerHTML = '';
+            var a1 = document.getElementById("downgaepo").innerHTML = '';
+            var a1 = document.getElementById("downgcu").innerHTML = '';
+            var a1 = document.getElementById("downbokjung").innerHTML = '';
+            var a1 = document.getElementById("downsuseo").innerHTML = '';
+            var a1 = document.getElementById("alertleft").innerHTML = '';
+            var a1 = document.getElementById("alertright").innerHTML = '';
+            let strleft = '<tr class="white"><th>행선지</th><th>열차번호</th><th>현재위치</th></tr>';
+            let strright = '<tr class="white"><th>행선지</th><th>열차번호</th><th>현재위치</th></tr>';
+            let upcount = 0;
+            let downcount = 0;
+            
+               // console.log(res.data.realtimeArrivalList);
+            for(let i = 0; i < res.data.length; i++){
+                //arvlCd 속성이 막차가 지나가면 1이 되는듯 ?
+                
+                if(res.data.realtimeArrivalList[i].updnLine == "상행"){
+                    upcount++;
+                    
+                    if(res.data.realtimeArrivalList[i].arvlMsg3 == "모란"){
+                        let aa = document.getElementById("upmoran").innerHTML = res.data.realtimeArrivalList[i].btrainNo + ' ' + res.data.realtimeArrivalList[i].bstatnNm +'=>';
+                    }
+                    
+                    else if(res.data.realtimeArrivalList[i].arvlMsg3 == "태평"){
+                        let aa = document.getElementById("uptaepyeong").innerHTML = res.data.realtimeArrivalList[i].btrainNo + ' ' + res.data.realtimeArrivalList[i].bstatnNm + '=>';
+                    }
+                    
+                    else if(res.data.realtimeArrivalList[i].arvlMsg3 == "가천대"){
+                        if(res.data.realtimeArrivalList[i].arvlMsg2 == "가천대 진입"){
+                        let aa = document.getElementById("upgcu").innerHTML = res.data.realtimeArrivalList[i].btrainNo + ' ' + res.data.realtimeArrivalList[i].bstatnNm + '=>';
+                        let tt = document.getElementById("alertleft").innerHTML = `${res.data.realtimeArrivalList[i].bstatnNm}행 ${res.data.realtimeArrivalList[i].btrainNo} 열차 접근중`
+                        }
+                        else{
+                            let tt = document.getElementById("alertleft").innerHTML = `<span style="color:yellow;">${res.data.realtimeArrivalList[i].bstatnNm}행 열차가 방금 출발했습니다.</span>`;
+                        }
+                    }
+                    
+                    else if(res.data.realtimeArrivalList[i].arvlMsg3 == "이매"){
+                        let aa = document.getElementById("upimae").innerHTML = res.data.realtimeArrivalList[i].btrainNo + ' ' + res.data.realtimeArrivalList[i].bstatnNm + '=>';
+                    }
+                    
+                    else if(res.data.realtimeArrivalList[i].arvlMsg3 == "야탑"){
+                        let aa = document.getElementById("upyatap").innerHTML = res.data.realtimeArrivalList[i].btrainNo + ' ' + res.data.realtimeArrivalList[i].bstatnNm + '=>';
+                    }
+                    strleft += `<tr><td><span class="red">${res.data.realtimeArrivalList[i].bstatnNm}</span></td><td><span class="white">${res.data.realtimeArrivalList[i].btrainNo}</span></td><td><span class="green">${(!(res.data.realtimeArrivalList[i].arvlMsg3 == "가천대") || (res.data.realtimeArrivalList[i].arvlMsg2 == "가천대 진입")) ? res.data.realtimeArrivalList[i].arvlMsg3 : `<span style="color:yellow;">복정</span>`}</span></td></tr>`//document.getElementById("lefttext")
+               }
+               else{
+                downcount++;
+                    if(res.data.realtimeArrivalList[i].arvlMsg3 == "개포동"){
+                        let aa = document.getElementById("downdaemo").innerHTML = res.data.realtimeArrivalList[i].btrainNo + ' ' + res.data.realtimeArrivalList[i].bstatnNm + '=>';
+                    }
+                    
+                    else if(res.data.realtimeArrivalList[i].arvlMsg3 == "대모산입구"){
+                        let aa = document.getElementById("downgaepo").innerHTML = res.data.realtimeArrivalList[i].btrainNo + ' ' + res.data.realtimeArrivalList[i].bstatnNm + '=>';
+                    }
+                    
+                    else if(res.data.realtimeArrivalList[i].arvlMsg3 == "가천대"){
+                        if(res.data.realtimeArrivalList[i].arvlMsg2 == "가천대 진입"){
+                        let aa = document.getElementById("downgcu").innerHTML = res.data.realtimeArrivalList[i].btrainNo + ' ' + res.data.realtimeArrivalList[i].bstatnNm + '=>';
+                        let tt = document.getElementById("alertright").innerHTML = `${res.data.realtimeArrivalList[i].bstatnNm}행 ${res.data.realtimeArrivalList[i].btrainNo} 열차 접근중`;
+                        }
+                        else{
+                            let tt = document.getElementById("alertright").innerHTML = `<span style="color:yellow;">${res.data.realtimeArrivalList[i].bstatnNm}행 열차가 방금 출발했습니다.</span>`;
+                        }
+                    }
+                    
+                    else if(res.data.realtimeArrivalList[i].arvlMsg3 == "복정"){
+                        let aa = document.getElementById("downbokjung").innerHTML = res.data.realtimeArrivalList[i].btrainNo + ' ' + res.data.realtimeArrivalList[i].bstatnNm + '=>';
+                    }
+                    
+                    else if(res.data.realtimeArrivalList[i].arvlMsg3 == "수서"){
+                        let aa = document.getElementById("downsuseo").innerHTML = res.data.realtimeArrivalList[i].btrainNo + ' ' + res.data.realtimeArrivalList[i].bstatnNm + '=>';
+                    }
+                    strright += `<tr><td><span class="red">${res.data.realtimeArrivalList[i].bstatnNm}</span></td><td><span class="white">${res.data.realtimeArrivalList[i].btrainNo}</span></td><td><span class="green">${(!(res.data.realtimeArrivalList[i].arvlMsg3 == "가천대") || (res.data.realtimeArrivalList[i].arvlMsg2 == "가천대 진입")) ? res.data.realtimeArrivalList[i].arvlMsg3 : `<span style="color:yellow;">태평</span>`}</span></td></tr>`;
+               }
+               
+               if(res.data.realtimeArrivalList[i].arvlMsg3 != "가천대"){
+               // str += `<br>${i + 1} - ${res.data.realtimeArrivalList[i].trainLineNm} (${res.data.realtimeArrivalList[i].updnLine}) ${res.data.realtimeArrivalList[i].btrainNo} 열차가 ${res.data.realtimeArrivalList[i].arvlMsg3}역에서 접근중입니다.`;
+               }
+               else{
+               // str += `<br>${i + 1} - ${res.data.realtimeArrivalList[i].trainLineNm} (${res.data.realtimeArrivalList[i].updnLine}) ${res.data.realtimeArrivalList[i].btrainNo} 열차가 가천대역에 도착했습니다.`;
+               }
+            }
+            if(!upcount){
+                strleft += `<tr><td colspan="3">오늘의 상행 열차 운행이 종료되었습니다.</td></tr>`
+            }
+            if(!downcount){
+                strright += `<tr><td colspan="3">오늘의 하행 열차 운행이 종료되었습니다.</td></tr>`
+            }
+            
+        
+        let al = document.getElementById("lefttext").innerHTML = strleft;
+        let ar = document.getElementById("righttext").innerHTML = strright;
+            //console.log(`${res.data.realtimeArrivalList[0].trainLineNm} 열차 위치 : ${res.data.realtimeArrivalList[0].arvlMsg2}.\n${res.data.realtimeArrivalList[1].trainLineNm} 열차 위치 :  ${res.data.realtimeArrivalList[1].arvlMsg2}\n${res.data.realtimeArrivalList[2].trainLineNm} 열차 위치 :  ${res.data.realtimeArrivalList[2].arvlMsg2}\n${res.data.realtimeArrivalList[3].trainLineNm} 열차 위치 : ${res.data.realtimeArrivalList[3].arvlMsg2}`);
+            
+            let a = document.getElementById("a").innerHTML = str;
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+        }
+        reset();
+        const test = setInterval(reset, 1000);
+        
+    </script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+           body{
+            background: linear-gradient(to right, hsl(133, 100%, 67%), #92f1ff);
+           }
+    @media screen and (min-width : 1300px){
+        .mobile{
+            display: none;
+            visibility: hidden;
+        }
+        .pc{
+        display: block;    
+        }
+        #a{
+            text-align: center;
+            
+            margin-top: 3.3%;
+            color: white;
+            background-color: black;
+            border: 2px solid red;
+           }
+            #upline{
+                width: 100%;
+                height : 20px;
+                background-color: yellow;
+                position: relative;
+                
+                display: inline-block; 
+        vertical-align: middle; 
+            }
+            #downline{
+                width: 100%;
+                height : 20px;
+                background-color: yellow;
+                position: relative;
+                margin-top: 200px; 
+                display: inline-block; 
+        vertical-align: middle;
+            }
+            .dot-container {
+        position: relative;
+        width: 100%; 
+        height: 80%; 
+        background-color: yellow; 
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top : 0;
+    }
+    .dot-container {
+        position: relative;
+        width: 100%; 
+        height: 20%; 
+        
+        margin-bottom: 20px; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top : 0;
+    }
+    .p-container {
+        position: relative;
+        width: 100%; 
+        height: 20%; 
+        
+        margin-bottom: 20px; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top : 0;
+    }
+    .dot {
+        border: 2px solid white;
+        width: 10px; 
+        height: 10px; 
+        border-radius: 100%; 
+        background-color: black; 
+        display: inline-block; 
+        margin: 0 7.5%; 
+    }
+    .dot::after {
+        content: attr(data-label1); 
+        position: absolute;
+        top: calc(100% + 5px); 
+        left: 50%; 
+        transform: translateX(-50%); 
+        font-size: 12px; 
+        
+    }
+    .tes {
+        width: 10px; 
+        height: 10px; 
+        margin: 0;
+        white-space: nowrap; 
+        display: inline-block; 
+        margin: 0 7.5%; 
+    }
+    .tes::after {
+        
+        position: relative;
+
+        left: 50%; 
+        transform: translateX(-100%); 
+      
+        
+    }
+    #yellow{
+        background-color: goldenrod;
+    }
+    #test{
+        
+        border : 1 solid black;
+    }
+    .dot p{
+        margin: 0;
+        margin-left: 10px;
+        
+        white-space: nowrap; 
+        font-size: 10px;
+        
+    }
+    #upbar{
+        margin : 0px;
+        width: 100%;
+        height : 150px;
+       background-color: white;
+       display: flex;
+            justify-content: center;
+            align-items: center;
+    }
+    #station {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            position: relative;
+            background-color: white;
+            border: 2px solid gold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #station p {
+            text-align: center;
+            margin: 0;
+        }
+    #smain{
+        width: 100%;
+        height: 25%;
+        text-align: center;
+    }
+    #lefts{
+        float: left;
+        margin-left: 0;
+        width: 30%;
+        height: 130px;
+        background-color: black;
+        border: 3px solid yellow;
+    }
+    #rights{
+        float: right;
+        margin-right: 0;
+        width: 30%;
+        height: 130px;
+        background-color: black;
+        border: 3px solid yellow;
+    }
+    
+    
+    
+    #lefttext{
+        color: white;
+        display: flex;
+        justify-content: center;
+    }
+    #righttext{
+        color: white;
+        display: flex;
+        justify-content: center;
+        
+    }
+    .red{
+        color : red;
+    }
+    .white{
+        color : white;
+    }
+    .green{
+        color : green;
+    }
+    #alertleft{
+        margin-top: 1.25%;
+        bottom: 0;
+        color: red;
+    }
+    #alertright{
+        margin-top : 1.25%;
+        bottom: 0;
+        color: red;
+    }
+    th, td{
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+    .dot > p{
+        text-align: left;
+        margin-left: -100px;
+        
+    }
+    .center{
+        text-align: center;
+    }
+    .center table{
+        display: inline-block;
+    }
+        
+    }
+    @media screen and (max-width : 1299px) {
+        .pc{
+            display: none;
+        }
+        .mobile{
+            display: block;
+            visibility: visible;
+        }
+        
+       .mh{
+        margin: 0;
+        height: 100%;
+        width: auto;
+        background-color: skyblue;
+        text-align: center;
+       }
+       .ma{
+        
+        float: left;
+        background-color: gold;
+        width: 30%;
+        margin-left:5%;
+        height: 100px;
+        text-align: center;
+        align-items: center;   
+       }
+       .ms{
+        
+        float:left;
+        background-color: gold;
+        width: 30%;
+        height: 100px;
+        text-align: center;   
+        margin-right: 5%;
+    }
+
+       .mn{
+        
+        float: left;
+        background-color: gold;
+        width: 30%;
+        height: 100px;
+        text-align: center;
+       }
+       footer{
+        float: inline-end;
+        background-color: red;
+        margin-top: 5%;
+       }
+    }
+    a{
+        text-decoration: none;
+    }
+    
+        </style>
+    </head>
+<body>
+    <div class="pc">
+    <div id="upbar"><div id="station"><p style="font-family: fantasy;">가천대<br>K223<br>수인분당선</p></div></div>
+    <div id="smain">
+    <div id="lefts" class="lqc"><table id="lefttext"><tr class="white"><th>행선지</th><th>열차번호</th><th>현재위치</th></tr><tr><td colspan="3">현재 전광판이 작동하지 않습니다.</td></tr></table><p id="alertleft"></p></div>
+
+
+
+    <div id="rights" class="lqc"><table id="righttext"><tr class="white"><th>행선지</th><th>열차번호</th><th>현재위치</th></tr><tr><td colspan="3">현재 전광판이 작동하지 않습니다.</td></tr></table><p id="alertright"></p></div>
+</div>
+
+<p id="a" style="text-align: center;">조치 이후에도 이 화면이 지속된다면 네트워크를 점검해 보세요.</p>
+
+<div id="upline">
+    <div class="dot-container">
+        <div class="dot" id="yellow"><p id="upimae"></p></div>
+        <div class="dot"><p id="upyatap"></p></div>
+        <div class="dot" id="yellow"><p id="upmoran"></p></div>
+        <div class="dot"><p id="uptaepyeong"></p></div>
+        <div class="dot"><p id="upgcu"></p></div>
+        
+    </div>
+    <div class="p-container">
+        <p class="tes">이매</p>
+        <p class="tes">야탑</p>
+        <p class="tes">모란</p>
+        <p class="tes">태평</p>
+        <p class="tes">가천대</p>
+        
+    </div>
+</div>
+<div id="downline">
+    <div class="dot-container">
+        <div class="dot"><p id="downgaepo"></p></div>
+        <div class="dot"><p id="downdaemo"></p></div>
+        <div class="dot" id="yellow"><p id="downsuseo"></p></div>
+        <div class="dot" id="yellow"><p id="downbokjung"></p></div>
+        <div class="dot"><p id="downgcu"></p></div>
+        
+    </div>
+    <div class="p-container">
+        <p class="tes">개포동</p>
+        <p class="tes">대모산입구</p>
+        <p class="tes">수서</p>
+        <p class="tes">복정</p>
+        <p class="tes">가천대</p>
+        
+    </div>
+    </div>
+    </div>
+    <div class="mobile">
+<div class="smobile">
+    <header class="mh">모바일에서는 지하철 시스템이 작동하지 않습니다.<br>다음 링크를 이용하여주세요.</header>
+    <aside class="ma">
+        무당이 시간 확인하러가기
+    </aside>
+    <a href="tabletest.html" target="_self"><nav class="mn">
+        주요 역까지의 시간 확인하기
+    </nav></a>
+    <section class="ms">
+        교내 시설 확인하기
+    </section>
+    <footer>
+        메인으로 돌아가기
+    </footer>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!--이 문서는 bootstrap을 사용했습니다.-->
+</body>
+</html>

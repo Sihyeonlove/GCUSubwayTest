@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주요역 도착 시간표</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, hsl(218, 85%, 43%), #9bbcf7);
+            color: white;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .table {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .table thead {
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .table th, .table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        .header {
+            text-align: center;
+            padding: 20px 0;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+        .l1{
+            color: blue;
+        }
+        .table img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        .table td {
+            height: 65px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">주요역 소요시간표</div>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>목적지</th>
+                    <th>소요 시간</th>
+                    <th>환승 가능 노선</th>
+                    <th>탑승열차 행선지</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>야탑</td>
+                    <td>00:07</td>
+                    <td>X</td>
+                    <td>죽전, 고색, 인천</td>
+                </tr>
+                
+                <tr>
+                    <td>서현</td>
+                    <td>00:11</td>
+                    <td>X</td>
+                    <td>죽전, 고색, 인천</td>
+                </tr>
+                <tr>
+                    <td>정자</td>
+                    <td>00:16</td>
+                    <td><img src="https://i.namu.wiki/i/ql3vZzvzQ6ydUzGQ6u0XXAfWkoaPCxjG9M4ekSYV6hMXxW6De9VLALVy9x0nGoNcYjMTJm1P2ybxT3I9-wesFQ.svg"></td>
+                    <td>죽전, 고색, 인천</td>
+                </tr>
+                <tr>
+                    <td>수원</td>
+                    <td>00:55</td>
+                    <td><img src="https://i.namu.wiki/i/B5v4U2jR7nfHRX03Vo27DbKeP18_jN3V_XMLxDkkWCEZb0XemjXW7Ushr03ivr73og-3wrptLe3vh39jriHmHfJIYr_gNZfvkv4sMfAyXHRa0rVEeDUrbkHk_NWTBLb9pUpcLR7BWsrgdFc9ahxY2A.svg"><img src="https://i.namu.wiki/i/5r9mJ5om_iZOjP1x00o3-PA0Sa24iLeK_MAtYG3Y5bDrzb9qAhdryROPYcBBA3anbTnNsqjmz0LKt9lKhXtlTQ.svg"></td>
+                    <td>고색, 인천</td>
+                </tr>
+                <tr>
+                    <td>원인재</td>
+                    <td>01:52</td>
+                    <td><img src="https://i.namu.wiki/i/FUDNTcebG8VKHCNk71MlcbPOXGekqhPEC31VUBr8-opab_btrTWX2s554PY7LA96bFikdSHkzC1PRQUO3kiMmw.svg"></td>
+                    <td>인천</td>
+                </tr>
+                <tr>
+                    <td>인천</td>
+                    <td>02:07</td>
+                    <td><img src="https://i.namu.wiki/i/B5v4U2jR7nfHRX03Vo27DbKeP18_jN3V_XMLxDkkWCEZb0XemjXW7Ushr03ivr73og-3wrptLe3vh39jriHmHfJIYr_gNZfvkv4sMfAyXHRa0rVEeDUrbkHk_NWTBLb9pUpcLR7BWsrgdFc9ahxY2A.svg"></td>
+                    <td>인천</td>
+                </tr>
+
+                <tr>
+                    <td>복정</td>
+                    <td>00:03</td>
+                    <td><img src="https://i.namu.wiki/i/sZ2Op5Y9smCZN4qCVlZQDRoZTKuKJ0cAWgbM8tHZlZDpjkMIlKmujzotfAMrQx3bzuMr_V7ynWKms-Bcir-__GdYQdRb4lbg76QXH6Mq3CCSz-MsQV0o6ZqJYEqWsmS6aSZ6fAX_y7NAKsGaDRvDcg.svg"></td>
+                    <td>왕십리, 청량리</td>
+                </tr>
+                <tr>
+                    <td>수서</td>
+                    <td>00:07</td>
+                    <td><img src="https://i.namu.wiki/i/Vys_JxVLRjdOKxU6UNG5qofoIz6mSN-saoPulmn69TTYgYJrAkzV0QSmpLaDSIpWsIGDsOqsqiAhsXRELj83Pg.svg"><img src="https://i.namu.wiki/i/RDyU-prnA4cxtgfa0jSDuGV3da75AB4JCzU0qnMbrdGUilajbpmGnh_9g6J0rJ61KaO1rml-9g_q5TezfpQotgRHEB5c8fvADiiU2QOrDObP4AApqUPiDgwLwe_czsTx_Ka13m0xB727LBVDeul-tg.svg"><img src="https://i.namu.wiki/i/bBam-d70Bu5F1-ez_Q80_4L6Mg5QcMTm5A-lfpbUSYhZyKM4PHlxdsu-SIR7Nb9BSIdpZgiW68YZ3QtkeTbvvA.svg"></td>
+                    <td>왕십리, 청량리</td>
+                </tr>
+                <tr>
+                    <td>선릉</td>
+                    <td>00:19</td>
+                    <td><img src="https://i.namu.wiki/i/oEOEsHIIcxZiRE6sNvS4QDuL-5APU6N7raP9FnY0X0C8DuHYDKCSsGGSMKCoYnzPxiOgRhBlFevBUxcWEo3kAg.svg"></td>
+                    <td>왕십리, 청량리</td>
+                </tr>
+                <tr>
+                    <td>왕십리</td>
+                    <td>00:31</td>
+                    <td><img src="https://i.namu.wiki/i/oEOEsHIIcxZiRE6sNvS4QDuL-5APU6N7raP9FnY0X0C8DuHYDKCSsGGSMKCoYnzPxiOgRhBlFevBUxcWEo3kAg.svg"><img src="https://i.namu.wiki/i/gr3tlgwz_wc05ZM0n2w4PdQW_HBIZ7pk7OfopNp1YQ5uTXHbwWtUjkds1-dG6IJR-ZJvBX8Pm6_VCMNu82OkXMoUJm-hdWPzvzRRqC6CCDRqA-4XmUseXOKmZ0PL0Tn9mO9aNSfoP3oDcUFV3ZFZAg.svg"><img src="https://i.namu.wiki/i/-wkMcLPEOMpdVODx3jJTpLiLGcBfxQQn24EM9maw5ROQy55aMQMDpU_Orf3A87yeY1Nu8EFtyWiJQMrlDiH7uw.svg"><img src="https://i.namu.wiki/i/zepHSsF0vHfX6R8mNd3wlw2v2m4GXapO_EchIgg2eCas6XQLFPmNeCarZQbztuEqksyBHlGOlh3_elEcOvO_X_ejbmzQf5d_flRFsGNWh7THvyKcNc1pwPAb8GcFykPYXw0iuW979pWpEjlQwF-gVQ.svg"></td>
+                    <td>왕십리, 청량리</td>
+                </tr>
+                <tr>
+                    <td>청량리</td>
+                    <td>00:37</td>
+                    <td><img src="https://i.namu.wiki/i/B5v4U2jR7nfHRX03Vo27DbKeP18_jN3V_XMLxDkkWCEZb0XemjXW7Ushr03ivr73og-3wrptLe3vh39jriHmHfJIYr_gNZfvkv4sMfAyXHRa0rVEeDUrbkHk_NWTBLb9pUpcLR7BWsrgdFc9ahxY2A.svg"><img src="https://i.namu.wiki/i/-wkMcLPEOMpdVODx3jJTpLiLGcBfxQQn24EM9maw5ROQy55aMQMDpU_Orf3A87yeY1Nu8EFtyWiJQMrlDiH7uw.svg"><img src="https://i.namu.wiki/i/5r9mJ5om_iZOjP1x00o3-PA0Sa24iLeK_MAtYG3Y5bDrzb9qAhdryROPYcBBA3anbTnNsqjmz0LKt9lKhXtlTQ.svg"><img src="https://i.namu.wiki/i/zepHSsF0vHfX6R8mNd3wlw2v2m4GXapO_EchIgg2eCas6XQLFPmNeCarZQbztuEqksyBHlGOlh3_elEcOvO_X_ejbmzQf5d_flRFsGNWh7THvyKcNc1pwPAb8GcFykPYXw0iuW979pWpEjlQwF-gVQ.svg"></td>
+                    <td>청량리, 왕십리(<img src="https://i.namu.wiki/i/-wkMcLPEOMpdVODx3jJTpLiLGcBfxQQn24EM9maw5ROQy55aMQMDpU_Orf3A87yeY1Nu8EFtyWiJQMrlDiH7uw.svg"> 환승)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> <!--이 문서는 bootstrap을 사용했습니다.-->
+</body>
+</html>

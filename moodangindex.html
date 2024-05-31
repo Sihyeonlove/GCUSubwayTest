@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>무당이 시간 알림 시스템</title>
+    <style>
+        body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: gray;
+    margin: 0;
+}
+
+.clock {
+    display: flex;
+    align-items: center;
+    border: 2px solid white;
+}
+
+.segment, .colon {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10vw;
+    color: white;
+    background-color: gray;
+    margin: 0 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10vw;
+    height: 20vw;
+    position: relative;
+}
+
+.colon {
+    width: auto;
+    height: auto;
+    font-size: 10vw;
+}
+
+.alert {
+    width: 4.5vw;
+    height: auto; 
+    margin-left: 10px;
+    object-fit: contain; 
+}
+.title{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+body > div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.dep{
+    text-align: center;
+    color: white;
+    font-size: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 2px solid white;
+    width: 100%;
+    margin: 0;
+}
+footer{
+color: white;
+position: fixed;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    font-size: auto;
+}
+@media screen and (max-width : 1100px){
+    #at{
+        font-size: 15px;
+    }
+    .dep{
+        overflow: hidden;
+    }
+}
+    </style>
+</head>
+<body>
+    <div>
+        <header class="title"><h1 style="text-align: center;align-items: center; margin: 0%; color: white;">현재 운영중인 무당이 => </h1><img src="img/whitemoodang.png" class="alert"></header>
+    <section class="clock">
+        <div class="segment" id="hours-tens"></div>
+        <div class="segment" id="hours-ones"></div>
+        <div class="colon">:</div>
+        <div class="segment" id="minutes-tens"></div>
+        <div class="segment" id="minutes-ones"></div>
+        <div class="colon">:</div>
+        <div class="segment" id="seconds-tens"></div>
+        <div class="segment" id="seconds-ones"></div>
+    </section>
+    <aside class="dep"><p id="at"></p></aside>
+    <footer>러쉬아워에는 시계가 빨간색으로 표시됩니다.혼잡한 시간대이니 주의하세요.</footer>
+</div>
+    <script>
+        function moodbool(time){
+            if(time.getDay() == 0 || time.getDay() == 6){
+                return 0;
+            }
+            if(time.getHours() >= 18 || time.getHours() <= 7){
+                return 0;
+            }
+            if(time.getHours() == 8 && time.getMinutes() >= 30){
+                return 1;
+            }
+            if(time.getHours() == 17 && time.getMinutes() <= 30){
+                return 1;
+            }
+            if(time.getHours() == 11 && time.getMinutes() <= 40){
+                return 1;
+            }
+            if(time.getHours() == 8 && time.getMinutes() < 30){
+                return 0;
+            }
+            if(time.getHours() == 17 && time.getMinutes() > 30){
+                return 0;
+            }
+            if(time.getHours() == 11 && time.getMinutes() > 40){
+                return 2;
+            }
+            if(time.getHours() == 12){
+                return 2;
+            }
+            return 1;
+            
+            
+
+        }
+        function reset() {
+    const time = new Date();
+    const hours = (time.getHours() + '').padStart(2, '0');
+    const minutes = (time.getMinutes() + '').padStart(2, '0');
+    const seconds = (time.getSeconds() + '').padStart(2, '0');
+
+    var a = document.getElementById('hours-tens').textContent = hours[0];
+    var a = document.getElementById('hours-ones').textContent = hours[1];
+    var a = document.getElementById('minutes-tens').textContent = minutes[0];
+    var a = document.getElementById('minutes-ones').textContent = minutes[1];
+    var a = document.getElementById('seconds-tens').textContent = seconds[0];
+    var a = document.getElementById('seconds-ones').textContent = seconds[1];
+            
+    if(moodbool(time) == 0){
+        var b = document.querySelector('.alert').src = 'https://th.bing.com/th/id/R.83417ef758a37d16ada67113dfe6b369?rik=smxuEC2rlOAOig&riu=http%3a%2f%2fclipart-library.com%2fimages_k%2fred-x-transparent-png%2fred-x-transparent-png-14.jpg&ehk=jzotARXupiAbQWHlOu1NK%2fHIqDFylB%2bFurzT7r7E%2fN0%3d&risl=&pid=ImgRaw&r=0';
+        var c = document.getElementById('at').innerHTML = "";
+    }
+    else if(moodbool(time) == 1){
+        var b = document.querySelector('.alert').src = 'img/orimoodang.png';
+        if(!(time.getMinutes() % 5)){
+            var c = document.getElementById('at').innerHTML = "지금 무당이가 발차했습니다.";
+        }
+        else{
+            var c = document.getElementById('at').innerHTML = "";
+        }
+        if(time.getMinutes() <= 10 || time.getMinutes() >= 50 || time.getHours() == 8){
+            var d = document.getElementsByClassName('segment');
+            var e = document.getElementsByClassName('colon');
+            for(let i = 0; i < d.length; i++){
+                d[i].style.color = "red";
+            }
+            for(let i = 0; i < e.length; i++){
+                e[i].style.color = "red";
+            }
+        }
+        else{
+            var d = document.getElementsByClassName('segment');
+            var e = document.getElementsByClassName('colon');
+            for(let i = 0; i < d.length; i++){
+                d[i].style.color = "white";
+            }
+            for(let i = 0; i < e.length; i++){
+                e[i].style.color = "white";
+            }
+        }
+    }
+    else{
+        var b = document.querySelector('.alert').src = 'img/whitemoodang.png';
+        if(!(time.getMinutes() % 12)){
+        var c = document.getElementById('at').innerHTML = "지금 무당이가 발차했습니다."
+        }
+        else{
+            var c = document.getElementById('at').innerHTML = "";
+        }
+    }
+}
+
+reset();
+setInterval(reset, 1000);
+
+    </script>
+</body>
+</html>
